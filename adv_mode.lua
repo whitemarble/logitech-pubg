@@ -177,9 +177,9 @@ function OnEvent(event, arg)
             
         end
     else
-	    if (event == "MOUSE_BUTTON_PRESSED") then
+	    if (event == "MOUSE_BUTTON_PRESSED" and arg == 1) then
             PressKey(fire_key)
-	    elseif (event == "MOUSE_BUTTON_RELEASED") then
+	    elseif (event == "MOUSE_BUTTON_RELEASED" and arg == 1) then
             ReleaseKey(fire_key)
         end
     end
