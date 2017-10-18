@@ -105,13 +105,13 @@ function recoil_mode()
     end
 end
 
-function recoil_value(_weapon,_duration)
+function recoil_value(_weapon,_duration,_coefficient)
     local _mode = recoil_mode()
     local step = (math.floor(_duration/100)) + 1
     if step > 40 then
         step = 40
     end
-    return recoil_table[_weapon][_mode][step]
+    return recoil_table[_weapon][_mode][step]*_coefficient
 end
 
 
@@ -158,7 +158,7 @@ function OnEvent(event, arg)
                 current_weapon_intervals = math.floor(coefficient  * current_weapon_speed)
                 OutputLogMessage("current_weapon_intervals = %s\n", current_weapon_intervals)
                 
-                current_weapon_recoil = recoil_value(current_weapon,shoot_duration)
+                current_weapon_recoil = recoil_value(current_weapon,shoot_duration,coefficient)
                 OutputLogMessage("current_weapon_recoil = %s\n", current_weapon_recoil)
 
                 recoil_recovery = current_weapon_recoil * current_weapon_intervals / 100
