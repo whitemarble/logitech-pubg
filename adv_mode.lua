@@ -33,9 +33,9 @@ local mode_switch_key = "capslock"
 --- Sensitivity in Game
 --- default is 50.0
 
-local target_sensitivity = 50.0
-local scope_sensitivity = 50.0
-local scope4x_sensitivity = 50.0
+local target_sensitivity = 65.0
+local scope_sensitivity = 65.0
+local scope4x_sensitivity = 55.0
 
 ---- Shooting delay setting
 ---- Two firing time intervals = weapon_speed * interval_ratio * ( 1 + random_seed * ( 0 ~ 1))
@@ -123,14 +123,7 @@ end
 function OnEvent(event, arg)
     OutputLogMessage("event = %s, arg = %d\n", event, arg)
     if(IsKeyLockOn("scrolllock")) then
-        if (event == "PROFILE_ACTIVATED") then
-            EnablePrimaryMouseButtonEvents(true)
-        elseif event == "PROFILE_DEACTIVATED" then
-            current_weapon = "none"
-            shoot_duration = 0.0
-            ReleaseKey(fire_key)
-            ReleaseMouseButton(1)
-        end
+        EnablePrimaryMouseButtonEvents(true)
 
         if (event == "MOUSE_BUTTON_PRESSED" and arg == akm_key) then
             current_weapon = "akm"
@@ -182,6 +175,12 @@ function OnEvent(event, arg)
                 OutputLogMessage("--------------------------\n")
             until not IsMouseButtonPressed(1)
             
+        end
+    else
+	    if (event == "MOUSE_BUTTON_PRESSED") then
+            PressKey(fire_key)
+	    elseif (event == "MOUSE_BUTTON_RELEASED") then
+            ReleaseKey(fire_key)
         end
     end
 end
